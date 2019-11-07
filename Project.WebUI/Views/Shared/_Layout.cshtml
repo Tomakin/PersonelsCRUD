@@ -1,0 +1,14 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<partial name="_LayoutHeadPartial" />
+<body>
+    <partial name="_LayoutHeaderPartial" />
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <partial name="_LayoutFooterPartial" />
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

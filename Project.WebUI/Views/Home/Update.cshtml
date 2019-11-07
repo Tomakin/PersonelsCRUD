@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+}
+
+@model Index_VM
+
+    <form method="post">
+        <input type="hidden" asp-for="personel.ID" />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="personel.Name"></label>
+                <input type="text" asp-for="personel.Name" class="form-control">
+                <span class="text-danger" asp-validation-for="personel.Name" />
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="personel.SurName"></label>
+                <input type="text" asp-for="personel.SurName" class="form-control">
+                <span class="text-danger" asp-validation-for="personel.SurName"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="personel.Phone"></label>
+                <input type="text" asp-for="personel.Phone" class="form-control">
+                <span class="text-danger" asp-validation-for="personel.Phone" />
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="personel.TCNo"></label>
+                <input type="text" asp-for="personel.TCNo" class="form-control">
+                <span class="text-danger" asp-validation-for="personel.TCNo"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="personel.CompanyName"></label>
+                <input type="text" asp-for="personel.CompanyName" class="form-control">
+                <span class="text-danger" asp-validation-for="personel.CompanyName"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="personel.ContactType"></label>
+                <select type="text" asp-for="personel.ContactType" asp-items="Model.ContactTypes" class="form-control"></select>
+                <span class="text-danger" asp-validation-for="personel.ContactType"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="personel.EMail"></label>
+                <input type="email" asp-for="personel.EMail" class="form-control">
+                <span class="text-danger" asp-validation-for="personel.EMail"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="personel.Address"></label>
+                <input type="text" asp-for="personel.Address" class="form-control" placeholder="1234 Sk.">
+                <span class="text-danger" asp-validation-for="personel.Address"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="personel.Country"></label>
+                <select type="text" asp-for="personel.Country" asp-items="Model.Countries" class="form-control" placeholder="Turkey"></select>
+                <span class="text-danger" asp-validation-for="personel.Country"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="personel.City"></label>
+                <input type="text" asp-for="personel.City" class="form-control" placeholder="İstanbul">
+                <span class="text-danger" asp-validation-for="personel.City"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="personel.District"></label>
+                <input type="text" asp-for="personel.District" class="form-control" placeholder="Bağcılar">
+                <span class="text-danger" asp-validation-for="personel.District"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="personel.PostCode"></label>
+                <input type="text" asp-for="personel.PostCode" class="form-control">
+                <span class="text-danger" asp-validation-for="personel.PostCode"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <button type="submit" class="btn btn-primary btn-block">Güncelle</button>
+            </div>
+        </div>
+    </form>

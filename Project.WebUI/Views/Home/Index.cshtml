@@ -1,0 +1,148 @@
+﻿@{
+    ViewData["Title"] = "Personels";
+}
+
+@model Index_VM
+
+@if (Model.personels.Count <= 0)
+{
+    <span class="text-info">Gösterilecek veri bulunmamaktadır.</span>
+}
+else
+{
+
+    <div id="addArea">
+        <form asp-action="Add">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.Name"></label>
+                    <input type="text" asp-for="personel.Name" class="form-control">
+                    <span class="text-danger" asp-validation-for="personel.Name" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.SurName"></label>
+                    <input type="text" asp-for="personel.SurName" class="form-control">
+                    <span class="text-danger" asp-validation-for="personel.SurName"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.Phone"></label>
+                    <input type="text" value="0" asp-for="personel.Phone" class="form-control">
+                    <span class="text-danger" asp-validation-for="personel.Phone" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.TCNo"></label>
+                    <input type="text" asp-for="personel.TCNo" class="form-control">
+                    <span class="text-danger" asp-validation-for="personel.TCNo"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.CompanyName"></label>
+                    <input type="text" asp-for="personel.CompanyName" class="form-control">
+                    <span class="text-danger" asp-validation-for="personel.CompanyName"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.ContactType"></label>
+                    <select type="text" asp-for="personel.ContactType" asp-items="Model.ContactTypes" class="form-control"></select>
+                    <span class="text-danger" asp-validation-for="personel.ContactType"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.EMail"></label>
+                    <input type="email" asp-for="personel.EMail" class="form-control">
+                    <span class="text-danger" asp-validation-for="personel.EMail"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.Address"></label>
+                    <input type="text" asp-for="personel.Address" class="form-control" placeholder="1234 Sk.">
+                    <span class="text-danger" asp-validation-for="personel.Address"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.Country"></label>
+                    <select type="text" asp-for="personel.Country" asp-items="Model.Countries" class="form-control"></select>
+                    <span class="text-danger" asp-validation-for="personel.Country"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.City"></label>
+                    <input type="text" asp-for="personel.City" class="form-control" placeholder="İstanbul">
+                    <span class="text-danger" asp-validation-for="personel.City"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.District"></label>
+                    <input type="text" asp-for="personel.District" class="form-control" placeholder="Bağcılar">
+                    <span class="text-danger" asp-validation-for="personel.District"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="personel.PostCode"></label>
+                    <input type="text" asp-for="personel.PostCode" class="form-control">
+                    <span class="text-danger" asp-validation-for="personel.PostCode"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 offset-md-4">
+                    <button type="submit" class="btn btn-primary btn-block">Ekle</button>
+                </div>
+            </div>
+        </form>
+    <br />
+    </div>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>İsim</th>
+                <th>Soyisim</th>
+                <th>TC No</th>
+                <th>Şirket Adı</th>
+                <th>İletişim Tipi</th>
+                <th>Ülke</th>
+                <th>Şehir</th>
+                <th>İlçe</th>
+                <th>Adres</th>
+                <th>Posta Kodu</th>
+                <th>E-mail</th>
+                <th>Cep Telefonu</th>
+                <th><a class="btn btn-outline-success" href="#" id="toggleAddArea">Ekle</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int i = 1; }
+            @foreach (var personel in Model.personels)
+            {
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@(personel.Name ?? "-")</td>
+                    <td>@(personel.SurName ?? "-")</td>
+                    <td>@(personel.TCNo ?? "-")</td>
+                    <td>@(personel.CompanyName ?? "-")</td>
+                    <td>@(personel.ContactType ?? "-")</td>
+                    <td>@(personel.Country ?? "-")</td>
+                    <td>@(personel.City ?? "-")</td>
+                    <td>@(personel.District ?? "-")</td>
+                    <td>@(personel.Address ?? "-")</td>
+                    <td>@(personel.PostCode ?? "-")</td>
+                    <td>@(personel.EMail ?? "-")</td>
+                    <td>@(personel.Phone ?? "-")</td>
+                    <td>
+                        <a class="btn btn-secondary btn-block" asp-route-id="@personel.ID" asp-action="Update">Güncelle</a>
+                        <a class="btn btn-danger btn-block" asp-route-id="@personel.ID" onclick="return confirm('Silmek istiyor musunuz?')" asp-action="Delete">Sil</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts{
+    <script>
+        var button = $("#toggleAddArea");
+        var area = $("#addArea");
+
+        // Area Down On Start
+        area.slideUp(1);
+
+        button.click(function () {
+            area.slideToggle();
+        });
+    </script>
+}
