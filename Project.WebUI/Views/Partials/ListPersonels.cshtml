@@ -1,0 +1,25 @@
+﻿@model List<Personel>
+@{int i = 1; }
+@foreach (var personel in Model)
+{
+    <tr>
+        <th scope="row">@i</th>
+        <td>@(personel.Name ?? "-")</td>
+        <td>@(personel.SurName ?? "-")</td>
+        <td>@(personel.TCNo ?? "-")</td>
+        <td>@(personel.CompanyName ?? "-")</td>
+        <td>@(personel.ContactType ?? "-")</td>
+        <td>@(personel.Country ?? "-")</td>
+        <td>@(personel.City ?? "-")</td>
+        <td>@(personel.District ?? "-")</td>
+        <td>@(personel.Address ?? "-")</td>
+        <td>@(personel.PostCode ?? "-")</td>
+        <td>@(personel.EMail ?? "-")</td>
+        <td>@(personel.Phone ?? "-")</td>
+        <td>
+            <a class="btn btn-secondary btn-block" asp-route-id="@personel.ID" asp-action="Update">Güncelle</a>
+            <a class="btn btn-danger btn-block" asp-route-id="@personel.ID" onclick="return confirm('Silmek istiyor musunuz?')" asp-action="Delete">Sil</a>
+        </td>
+    </tr>
+    i++;
+}

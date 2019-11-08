@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Project.Services.Abstract;
+using Project.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,10 +13,13 @@ namespace Project.WebUI.Library.Functions
 {
     public class PersonelFn
     {
+        IDatabaseService _db;
+
         IWebHostEnvironment _env;
-        public PersonelFn(IWebHostEnvironment env)
+        public PersonelFn(IWebHostEnvironment env, IDatabaseService db)
         {
             _env = env;
+            _db = db;
         }
         public List<string> GetContactTypes()
         {
@@ -33,5 +38,21 @@ namespace Project.WebUI.Library.Functions
 
             return JsonSerializer.Deserialize<List<string>>(read);
         }
+
+        public Index_VM GetFilteredModel(string ContactType, string CountryName)
+        {
+            Index_VM model = new Index_VM()
+            {
+                personels = _db.Personel.GetAll().ToList()
+            };
+            if (ContactType != null)
+                model.personels = model.personels.Where(k => k.ContactType == ContactType).ToList();
+            if (CountryName != null)
+                model.personels = model.personels.Where(k => k.Country == CountryName).ToList();
+            return model;
+        }
+
+
+        
     }
 }

@@ -81,9 +81,22 @@ else
                 </div>
             </div>
         </form>
-    <br />
+        <br />
     </div>
 
+    <div class="row" id="filterArea">
+        <div class="col-6">
+            <select class="form-control" onchange="loadbyAjax()" id="contactType" asp-items="@Model.ContactTypes">
+                <option value="">İletişim Türü Seçiniz..</option>
+
+            </select>
+        </div>
+        <div class="col-6">
+            <select class="form-control" onchange="loadbyAjax()" id="country" asp-items="@Model.Countries">
+                <option value="">Ülke Seçiniz..</option>
+            </select>
+        </div>
+    </div>
 
     <table class="table">
         <thead>
@@ -101,48 +114,49 @@ else
                 <th>Posta Kodu</th>
                 <th>E-mail</th>
                 <th>Cep Telefonu</th>
-                <th><a class="btn btn-outline-success" href="#" id="toggleAddArea">Ekle</a></th>
+                <th>
+                <a class="btn btn-outline-success" href="#" id="toggleAddArea">Ekle</a>
+                <a class="btn btn-outline-info" asp-action="OnPostExport">İndir</a>
+                </th>
             </tr>
         </thead>
-        <tbody>
-            @{int i = 1; }
-            @foreach (var personel in Model.personels)
-            {
-                <tr>
-                    <th scope="row">@i</th>
-                    <td>@(personel.Name ?? "-")</td>
-                    <td>@(personel.SurName ?? "-")</td>
-                    <td>@(personel.TCNo ?? "-")</td>
-                    <td>@(personel.CompanyName ?? "-")</td>
-                    <td>@(personel.ContactType ?? "-")</td>
-                    <td>@(personel.Country ?? "-")</td>
-                    <td>@(personel.City ?? "-")</td>
-                    <td>@(personel.District ?? "-")</td>
-                    <td>@(personel.Address ?? "-")</td>
-                    <td>@(personel.PostCode ?? "-")</td>
-                    <td>@(personel.EMail ?? "-")</td>
-                    <td>@(personel.Phone ?? "-")</td>
-                    <td>
-                        <a class="btn btn-secondary btn-block" asp-route-id="@personel.ID" asp-action="Update">Güncelle</a>
-                        <a class="btn btn-danger btn-block" asp-route-id="@personel.ID" onclick="return confirm('Silmek istiyor musunuz?')" asp-action="Delete">Sil</a>
-                    </td>
-                </tr>
-                i++;
-            }
+        <tbody id="listPersonel">
+        @* Loads personels via ajax*@
         </tbody>
     </table>
 }
 
 @section Scripts{
     <script>
+        // Toggle Add Area
         var button = $("#toggleAddArea");
         var area = $("#addArea");
-
-        // Area Down On Start
-        area.slideUp(1);
 
         button.click(function () {
             area.slideToggle();
         });
+
+         // Area Down On Start
+        area.slideUp(1);
+
+
+        //Filter By Ajax
+        var loadbyAjax = function () {
+
+            var listPersonel = $("#listPersonel");
+            var contactType = $("#contactType option:selected").val();
+            var country = $("#country option:selected").val();
+
+            $.ajax({
+                method: "POST",
+                url: "@Url.Action("LoadPersonelsByFilter")",
+                data: { "ContactType": contactType, "CountryName": country },
+                success: function(data) {
+                    listPersonel.html(data);
+                }
+            })
+        }
+        loadbyAjax();
     </script>
 }
+

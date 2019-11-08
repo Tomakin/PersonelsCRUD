@@ -38,7 +38,7 @@ namespace Project.WebUI
             services.AddMvc();
 
             //Custom Func.
-            services.AddSingleton<PersonelFn>();
+            services.AddTransient<PersonelFn>();
 
         }
 
